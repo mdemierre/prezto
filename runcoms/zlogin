@@ -24,3 +24,10 @@ if [[ -o INTERACTIVE && -t 2 ]]; then
   fi
 
 fi >&2
+
+#
+# Source local zlogin if any
+#
+if [[ -f "${ZDOTDIR:-$HOME}/.zsh/zlogin.local.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zsh/zlogin.local.zsh"
+fi

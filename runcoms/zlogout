@@ -17,3 +17,10 @@ SAYINGS=(
 echo $SAYINGS[$(($RANDOM % ${#SAYINGS} + 1))]
 
 } >&2
+
+#
+# Source local zlogout if any
+#
+if [[ -f "${ZDOTDIR:-$HOME}/.zsh/zlogout.local.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zsh/zlogout.local.zsh"
+fi

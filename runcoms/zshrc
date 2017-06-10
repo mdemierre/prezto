@@ -11,3 +11,50 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+#
+# Colors
+#
+
+# Base16 Shell
+if [[ "$OSTYPE" == darwin* ]]; then
+  # Fixed theme to avoid slow shell startup
+  export BASE16_SHELL=$HOME/.config/base16-shell/
+  export BASE16_THEME=base16-onedark
+  . $BASE16_SHELL/scripts/$BASE16_THEME.sh
+elif [[ "$OSTYPE" == linux-gnu* ]]; then
+  # TODO: see if possible to use fixed theme
+  BASE16_SHELL="$HOME/.config/base16-shell/"
+  [ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] && eval "$("$BASE16_SHELL/profile_helper.sh")"
+fi
+
+#
+# Aliases
+#
+
+# TheFuck
+if (( $+commands[thefuck] )); then
+eval $(thefuck --alias)
+fi
+
+# Fasd
+alias z='fasd_cd -d'     # cd, same functionality as j in autojump
+alias zz='fasd_cd -d -i' # cd with interactive selection
+
+# bat
+alias cat='bat'
+
+#
+# OSX specific
+#
+if [[ "$OSTYPE" == darwin* ]]; then
+  # iTerm2
+  source ~/.iterm2_shell_integration.zsh
+fi
+
+#
+# Source local zshrc if any
+#
+if [[ -f "${ZDOTDIR:-$HOME}/.zsh/zshrc.local.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zsh/zshrc.local.zsh"
+fi
