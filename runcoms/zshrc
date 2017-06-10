@@ -11,3 +11,66 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+#
+# Colors
+#
+
+# Base16 Shell
+if [ -e "$HOME/.config/base16-shell" ]; then
+  # Fixed theme to avoid slow shell startup
+  BASE16_SHELL="$HOME/.config/base16-shell/"
+  . $BASE16_SHELL/scripts/base16-onedark.sh
+fi
+
+#
+# Aliases
+#
+
+# fzf (fuzzy finder)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# bat (cat replacement)
+if (( $+commands[bat] )); then
+  alias cat='bat'
+  alias pcat='cat'
+  export PAGER='bat'
+fi
+
+# zoxide (alias: "z")
+if (( $+commands[zoxide] )); then
+  eval "$(zoxide init zsh)"
+fi
+
+# Kubernetes
+if (( $+commands[kubectl] )); then
+  alias k=kubectl
+fi
+
+# TheFuck (alias: "fuck")
+if (( $+commands[thefuck] )); then
+  eval $(thefuck --alias)
+fi
+
+# Python pyenv
+if (( $+commands[pyenv] )); then
+  eval "$(pyenv init -)"
+fi
+
+#
+# OSX specific
+#
+if [[ "$OSTYPE" == darwin* ]]; then
+  # iTerm2
+  source ~/.iterm2_shell_integration.zsh
+fi
+
+#
+# Source local zshrc if any
+#
+if [[ -f "${ZDOTDIR:-$HOME}/.zsh/zshrc.local.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zsh/zshrc.local.zsh"
+fi
+
+# Startship prompt
+eval "$(starship init zsh)"
