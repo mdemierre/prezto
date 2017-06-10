@@ -9,3 +9,43 @@
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+#
+# Locale
+#
+
+export LC_ALL="en_US.UTF-8"
+
+#
+# Java and Scala
+#
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  export JAVA_8_HOME="$(/usr/libexec/java_home -v1.8)"
+  export JAVA_11_HOME="$(/usr/libexec/java_home -v11)"
+  export JAVA_17_HOME="$(/usr/libexec/java_home -v17)"
+  export JAVA_HOME="${JAVA_17_HOME}"
+  export SCALA_HOME="/usr/local/opt/scala"
+elif [[ "$OSTYPE" == linux-gnu ]]; then
+  export JAVA_8_HOME="/usr/lib/jvm/java-8-jdk"
+  export JAVA_11_HOME="/usr/lib/jvm/java-11-jdk"
+  export JAVA_11_HOME="/usr/lib/jvm/java-17-jdk"
+  export JAVA_HOME="${JAVA_17_HOME}"
+  export SCALA_HOME="/usr/share/scala"
+fi
+
+export JDK_HOME=$JAVA_HOME
+export JAVA_OPTS="$JAVA_OPTS -Dscala.color"
+
+#
+# Go
+#
+
+export GOPATH=$HOME/go
+
+#
+# Source local zshenv if any
+#
+if [[ -f "${ZDOTDIR:-$HOME}/.zsh/zshenv.local.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zsh/zshenv.local.zsh"
+fi
