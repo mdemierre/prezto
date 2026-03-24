@@ -31,7 +31,8 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # bat (cat replacement)
-if (( $+commands[bat] )); then
+# Not applied for AI agents
+if (( $+commands[bat] )) && [[ -z "$AGENT" ]]; then
   alias cat='bat'
   alias pcat='cat'
   export PAGER='bat'
@@ -71,6 +72,9 @@ fi
 if [[ -f "${ZDOTDIR:-$HOME}/.zsh/zshrc.local.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zsh/zshrc.local.zsh"
 fi
+
+# Used by pipx and some other tools to place binaries
+export PATH="${PATH}:${HOME}/.local/bin"
 
 # Startship prompt
 eval "$(starship init zsh)"
