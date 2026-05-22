@@ -23,8 +23,16 @@ fi
 if [[ -z "$VISUAL" ]]; then
   export VISUAL='vim'
 fi
+
+if (( $+commands[nvim] )); then
+  export VISUAL='nvim'
+fi
+
 if [[ -z "$PAGER" ]]; then
   export PAGER='less'
+  if (( $+commands[bat] )) && [[ -z "$AGENT" ]] && [[ -z "$AI_AGENT" ]]; then
+    export PAGER='bat'
+  fi
 fi
 
 #

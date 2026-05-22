@@ -32,10 +32,9 @@ fi
 
 # bat (cat replacement)
 # Not applied for AI agents
-if (( $+commands[bat] )) && [[ -z "$AGENT" ]]; then
+if (( $+commands[bat] )) && [[ -z "$AGENT" ]] && [[ -z "$AI_AGENT" ]]; then
   alias cat='bat'
   alias pcat='cat'
-  export PAGER='bat'
 fi
 
 # zoxide (alias: "z")
@@ -78,3 +77,8 @@ export PATH="${PATH}:${HOME}/.local/bin"
 
 # Startship prompt
 eval "$(starship init zsh)"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/marc/.lmstudio/bin"
+# End of LM Studio CLI section
+
